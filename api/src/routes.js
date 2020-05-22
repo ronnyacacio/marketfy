@@ -1,11 +1,21 @@
 import { Router } from 'express';
 
+import multer from 'multer';
+import multerConfig from './config/multer';
+
 import SessionUserController from './app/controllers/SessionUserController';
 import SessionCustomerController from './app/controllers/SessionCustomerController';
+import FileController from './app/controllers/FileController';
+import UserController from './app/controllers/UserController';
 
 const routes = new Router();
+const upload = multer(multerConfig);
 
-routes.post('/user/session', SessionUserController.store);
-routes.post('/customer/session', SessionCustomerController.store);
+routes.post('/users/sessions', SessionUserController.store);
+routes.post('/customers/sessions', SessionCustomerController.store);
+
+routes.post('/users', UserController.store);
+
+routes.post('/files', upload.single('file'), FileController.store);
 
 export default routes;

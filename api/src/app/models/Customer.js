@@ -19,6 +19,10 @@ class Customer extends Model {
         sequelize,
       }
     );
+    this.addHook('beforeSave', async (customer) => {
+      if (customer.password)
+        customer.password_hash = await bcrypt.hash(customer.password, 8);
+    });
     return this;
   }
 
