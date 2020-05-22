@@ -1,4 +1,5 @@
 import Sequelize, { Model } from 'sequelize';
+import bcrypt from 'bcryptjs';
 
 class Customer extends Model {
   static init(sequelize) {
@@ -19,6 +20,10 @@ class Customer extends Model {
       }
     );
     return this;
+  }
+
+  checkPassword(password) {
+    return bcrypt.compare(password, this.password_hash);
   }
 }
 
