@@ -18,4 +18,6 @@ routes.post('/users', UserController.store);
 
 routes.post('/files', upload.single('file'), FileController.store);
 
+routes.get('/users', UserController.index);
+
 export default routes;
