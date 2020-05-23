@@ -67,6 +67,21 @@ class ProductController {
       image,
     });
   }
+
+  async destroy(req, res) {
+    const product = await Product.findByPk(req.params.id);
+
+    const { userId } = req;
+
+    if (product.provider_id !== userId)
+      return res.status(401).json({
+        error: "You don't have permission to destroy this product",
+      });
+
+    await product.destroy();
+
+    return res.json();
+  }
 }
 
 export default new ProductController();
