@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 import Product from '../models/Product';
 import Provider from '../models/Provider';
 import File from '../models/File';
+import Category from '../models/Category';
 
 class ProductController {
   async store(req, res) {
@@ -10,7 +11,7 @@ class ProductController {
       name: Yup.string().required(),
       stock: Yup.number().required(),
       price: Yup.number().required(),
-      category: Yup.string().required(),
+      category_id: Yup.number().required(),
       unitary: Yup.boolean(),
       image_id: Yup.number().required(),
     });
@@ -24,6 +25,10 @@ class ProductController {
     const imageExists = await File.findByPk(req.body.image_id);
     if (!imageExists)
       return res.status(400).json({ error: 'File not exists.' });
+
+    const categoryExists = await Category.findByPk(req.body.category_id);
+    if (!categoryExists)
+      return res.status(400).json({ error: 'Category not exists.' });
 
     req.body.provider_id = req.userId;
 
@@ -42,6 +47,11 @@ class ProductController {
           model: File,
           as: 'image',
           attributes: ['id', 'path', 'url'],
+        },
+        {
+          model: Category,
+          as: 'category',
+          attributes: ['id', 'name'],
         },
       ],
     });

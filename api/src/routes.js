@@ -11,6 +11,8 @@ import FileController from './app/controllers/FileController';
 import ProviderController from './app/controllers/ProviderController';
 import CustomerController from './app/controllers/CustomerController';
 import ProductController from './app/controllers/ProductController';
+import ProductsByCategoryController from './app/controllers/ProductByCategoryController';
+import CategoryController from './app/controllers/CategoryController';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -25,7 +27,10 @@ routes.post('/files', upload.single('file'), FileController.store);
 
 routes.use(authMiddleware);
 
+routes.post('/categories', CategoryController.store);
+
 routes.post('/products', ProductController.store);
+routes.get('/products/:category_id', ProductsByCategoryController.index);
 
 routes.get('/providers', ProviderController.index);
 
