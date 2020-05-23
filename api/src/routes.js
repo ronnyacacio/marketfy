@@ -29,6 +29,8 @@ routes.post('/files', upload.single('file'), FileController.store);
 routes.use(authMiddleware);
 
 routes.post('/categories', CategoryController.store);
+routes.put('/categories/:id', CategoryController.update);
+routes.delete('/categories/:id', CategoryController.destroy);
 routes.get('/categories/:provider_id', CategoryByProviderController.index);
 
 routes.post('/products', ProductController.store);

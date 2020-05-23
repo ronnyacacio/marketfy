@@ -20,7 +20,8 @@ class ProductController {
       return res.status(400).json({ error: 'Validation Fails' });
 
     const provider = await Provider.findByPk(req.userId);
-    if (!provider) return res.status(400).json('Provider not exists.');
+    if (!provider)
+      return res.status(400).json({ error: 'Provider not exists.' });
 
     const imageExists = await File.findByPk(req.body.image_id);
     if (!imageExists)
@@ -83,7 +84,6 @@ class ProductController {
 
     if (req.body.category_id || req.body.category_id === 0) {
       const categoryExists = await Category.findByPk(req.body.category_id);
-
       if (!categoryExists)
         return res.status(400).json({ error: 'Category not exists.' });
     }
@@ -96,7 +96,7 @@ class ProductController {
 
     const { id } = req.params;
 
-    const product = await Product.findOne({ where: { id } });
+    const product = await Product.findByPk(id);
 
     const { userId } = req;
 
@@ -116,7 +116,7 @@ class ProductController {
     } = await product.update(req.body);
 
     return res.json({
-      id,
+      id: Number(id),
       name,
       stock,
       price,
@@ -129,6 +129,8 @@ class ProductController {
 
   async destroy(req, res) {
     const product = await Product.findByPk(req.params.id);
+
+    if (!product) return res.status(400).json({ error: 'Product not exists.' });
 
     const { userId } = req;
 
