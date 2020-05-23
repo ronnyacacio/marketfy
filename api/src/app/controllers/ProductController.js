@@ -68,6 +68,65 @@ class ProductController {
     });
   }
 
+  async update(req, res) {
+    const schema = Yup.object().shape({
+      name: Yup.string(),
+      stock: Yup.number(),
+      price: Yup.number(),
+      category_id: Yup.number(),
+      unitary: Yup.boolean(),
+      image_id: Yup.number(),
+    });
+
+    if (!(await schema.isValid(req.body)))
+      return res.status(400).json({ error: 'Validation Fails' });
+
+    if (req.body.category_id || req.body.category_id === 0) {
+      const categoryExists = await Category.findByPk(req.body.category_id);
+
+      if (!categoryExists)
+        return res.status(400).json({ error: 'Category not exists.' });
+    }
+
+    if (req.body.image_id || req.body.image_id === 0) {
+      const imageExists = await File.findByPk(req.body.image_id);
+      if (!imageExists)
+        return res.status(400).json({ error: 'File not exists.' });
+    }
+
+    const { id } = req.params;
+
+    const product = await Product.findOne({ where: { id } });
+
+    const { userId } = req;
+
+    if (product.provider_id !== userId)
+      return res.status(401).json({
+        error: "You don't have permission to update this product",
+      });
+
+    const {
+      name,
+      stock,
+      price,
+      unitary,
+      category_id,
+      image_id,
+      provider_id,
+    } = await product.update(req.body);
+
+    return res.json({
+      id,
+      name,
+      stock,
+      price,
+      unitary,
+      category_id,
+      image_id,
+      provider_id,
+    });
+  }
+
   async destroy(req, res) {
     const product = await Product.findByPk(req.params.id);
 

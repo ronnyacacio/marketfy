@@ -32,6 +32,7 @@ routes.post('/categories', CategoryController.store);
 routes.get('/categories/:provider_id', CategoryByProviderController.index);
 
 routes.post('/products', ProductController.store);
+routes.put('/products/:id', ProductController.update);
 routes.delete('/products/:id', ProductController.destroy);
 routes.get('/products/:category_id', ProductsByCategoryController.index);
 
