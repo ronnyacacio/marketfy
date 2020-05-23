@@ -7,9 +7,9 @@ class Product extends Model {
         name: Sequelize.STRING,
         stock: Sequelize.DOUBLE,
         price: Sequelize.DOUBLE,
+        image_id: Sequelize.INTEGER,
         unitary: Sequelize.BOOLEAN,
         category_id: Sequelize.INTEGER,
-        image_id: Sequelize.INTEGER,
       },
       {
         sequelize,
