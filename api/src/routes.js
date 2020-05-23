@@ -9,6 +9,7 @@ import SessionUserController from './app/controllers/SessionUserController';
 import SessionCustomerController from './app/controllers/SessionCustomerController';
 import FileController from './app/controllers/FileController';
 import UserController from './app/controllers/UserController';
+import CustomerController from './app/controllers/CustomerController';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -17,6 +18,7 @@ routes.post('/users/sessions', SessionUserController.store);
 routes.post('/customers/sessions', SessionCustomerController.store);
 
 routes.post('/users', UserController.store);
+routes.post('/customers', CustomerController.store);
 
 routes.post('/files', upload.single('file'), FileController.store);
 
