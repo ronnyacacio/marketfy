@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 
 import Product from '../models/Product';
-import User from '../models/User';
+import Provider from '../models/Provider';
 import File from '../models/File';
 
 class ProductController {
@@ -18,14 +18,14 @@ class ProductController {
     if (!(await schema.isValid(req.body)))
       return res.status(400).json({ error: 'Validation Fails' });
 
-    const user = await User.findByPk(req.userId);
-    if (!user) return res.status(400).json('User not exists.');
+    const provider = await Provider.findByPk(req.userId);
+    if (!provider) return res.status(400).json('Provider not exists.');
 
     const imageExists = await File.findByPk(req.body.image_id);
     if (!imageExists)
       return res.status(400).json({ error: 'File not exists.' });
 
-    req.body.user_id = req.userId;
+    req.body.provider_id = req.userId;
 
     const {
       id,
@@ -34,7 +34,7 @@ class ProductController {
       price,
       category,
       unitary,
-      user_id,
+      provider_id,
       image,
     } = await Product.create(req.body, {
       include: [
@@ -53,7 +53,7 @@ class ProductController {
       price,
       category,
       unitary,
-      user_id,
+      provider_id,
       image,
     });
   }

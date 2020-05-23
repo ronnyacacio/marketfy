@@ -1,11 +1,11 @@
 import * as Yup from 'yup';
 
-import User from '../models/User';
+import Provider from '../models/Provider';
 import File from '../models/File';
 
-class UserController {
+class ProviderController {
   async index(req, res) {
-    const users = await User.findAll({
+    const providers = await Provider.findAll({
       attributes: ['id', 'email', 'description'],
       include: [
         {
@@ -16,7 +16,7 @@ class UserController {
       ],
     });
 
-    return res.json(users);
+    return res.json(providers);
   }
 
   async store(req, res) {
@@ -35,9 +35,10 @@ class UserController {
       return res.status(400).json({ error: 'Validation Fails' });
 
     const { email } = req.body;
-    const user = await User.findOne({ where: { email } });
+    const provider = await Provider.findOne({ where: { email } });
 
-    if (user) return res.status(400).json({ error: 'User already exists.' });
+    if (provider)
+      return res.status(400).json({ error: 'Provider already exists.' });
 
     const { avatar_id } = req.body;
     const avatarExists = await File.findByPk(avatar_id);
@@ -45,7 +46,7 @@ class UserController {
     if (!avatarExists)
       return res.status(400).json({ error: 'File not exists.' });
 
-    const { id, name, description, avatar } = await User.create(req.body, {
+    const { id, name, description, avatar } = await Provider.create(req.body, {
       include: [
         {
           model: File,
@@ -59,4 +60,4 @@ class UserController {
   }
 }
 
-export default new UserController();
+export default new ProviderController();

@@ -2,13 +2,13 @@ import jwt from 'jsonwebtoken';
 import * as Yup from 'yup';
 
 import auth from '../../config/auth';
-import User from '../models/User';
+import Provider from '../models/Provider';
 
-class SessionUserController {
+class SessionProviderController {
   async store(req, res) {
     const schema = Yup.object().shape({
       email: Yup.string().email().required(),
-      password: Yup.string().min(6).max(6).required(),
+      password: Yup.string().min(6).required(),
     });
 
     if (!(await schema.isValid(req.body)))
@@ -16,17 +16,17 @@ class SessionUserController {
 
     const { email, password } = req.body;
 
-    const user = await User.findOne({ where: { email } });
+    const provider = await Provider.findOne({ where: { email } });
 
-    if (!user) return res.status(401).json({ error: 'User not found' });
+    if (!provider) return res.status(401).json({ error: 'provider not found' });
 
-    if (!(await user.checkPassword(password)))
+    if (!(await provider.checkPassword(password)))
       return res.status(401).json({ error: 'Password does not match' });
 
-    const { id, name } = user;
+    const { id, name } = provider;
 
     return res.json({
-      user: {
+      provider: {
         id,
         name,
         email,
@@ -38,4 +38,4 @@ class SessionUserController {
   }
 }
 
-export default new SessionUserController();
+export default new SessionProviderController();
