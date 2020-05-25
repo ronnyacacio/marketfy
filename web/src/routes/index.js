@@ -7,7 +7,7 @@ import SignIn from '~/pages/SignIn';
 import SignUp from '~/pages/SignUp';
 import Product from '~/pages/Product';
 
-export default function AuthRoutes() {
+export default function Routes() {
   return (
     <Switch>
       <Route exact path="/" component={SignIn} />
