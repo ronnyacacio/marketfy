@@ -1,6 +1,8 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
+import DefaultLayout from '~/layouts/Default';
+
 export default function RouteWrapper({
   component: Component,
   isPrivate,
@@ -10,5 +12,14 @@ export default function RouteWrapper({
 
   if (!signed && isPrivate) return <Redirect to="/" />;
 
-  return <Route {...rest} render={(props) => <Component {...props} />} />;
+  return (
+    <Route
+      {...rest}
+      render={(props) => (
+        <DefaultLayout>
+          <Component {...props} />
+        </DefaultLayout>
+      )}
+    />
+  );
 }
