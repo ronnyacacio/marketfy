@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext, createContext } from 'react';
+import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 
@@ -39,7 +40,7 @@ export function AuthProvider({ children }) {
       );
       localStorage.setItem('@MarketFy:token', token);
     } catch (err) {
-      console.log(err);
+      toast.error('Falha na autenticação, verifique seus dados');
     }
   }
 
