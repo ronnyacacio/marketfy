@@ -3,7 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@unform/core": "^2.1.0",
+    "@unform/web": "^2.1.0",
+    "axios": "^0.19.2",
     "cra-template": "1.0.3",
+    "polished": "^3.6.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",

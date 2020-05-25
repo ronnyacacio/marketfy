@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
+import { useAuth } from '~/contexts/auth';
 import DefaultLayout from '~/layouts/Default';
 
 export default function RouteWrapper({
@@ -8,9 +9,10 @@ export default function RouteWrapper({
   isPrivate,
   ...rest
 }) {
-  const signed = false;
+  const { signed } = useAuth();
 
   if (!signed && isPrivate) return <Redirect to="/" />;
+  if (signed && !isPrivate) return <Redirect to="/products" />;
 
   return (
     <Route
