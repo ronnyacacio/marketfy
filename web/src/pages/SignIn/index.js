@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { useAuth } from '~/contexts/auth';
-import Input from '~/components/Input';
+import { Input } from '~/components';
 import marketfy from '~/assets/marketfy.png';
 import { Container, FormContainer } from './styles';
 

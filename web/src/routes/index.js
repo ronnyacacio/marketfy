@@ -6,6 +6,7 @@ import Route from './Route';
 import SignIn from '~/pages/SignIn';
 import SignUp from '~/pages/SignUp';
 import Product from '~/pages/Product';
+import Category from '~/pages/Category';
 
 export default function Routes() {
   return (
@@ -13,6 +14,7 @@ export default function Routes() {
       <Route exact path="/" component={SignIn} />
       <Route path="/register" component={SignUp} />
       <Route path="/products" component={Product} isPrivate />
+      <Route path="/categories" component={Category} isPrivate />
     </Switch>
   );
 }

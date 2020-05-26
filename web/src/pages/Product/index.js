@@ -1,13 +1,10 @@
 import React from 'react';
 
-import { useAuth } from '~/contexts/auth';
+// import { useAuth } from '~/contexts/auth';
+import { Header } from '~/components';
 
 export default function Product() {
-  const { signOut } = useAuth();
+  // const { signOut } = useAuth();
 
-  return (
-    <form onSubmit={signOut}>
-      <button type="submit">Voltar</button>
-    </form>
-  );
+  return <Header currentPage="PRODUCTS" />;
 }
