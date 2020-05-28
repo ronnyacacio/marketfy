@@ -4,6 +4,7 @@ export const Container = styled.div`
   background: #fff;
   border: 1px solid #ddd;
   padding: 0 30px;
+  margin-bottom: 30px;
 `;
 
 export const Content = styled.div`
@@ -40,6 +41,7 @@ export const Info = styled.div`
 
   img {
     height: 50px;
+    border-radius: 25px;
     margin-right: 25px;
   }
 

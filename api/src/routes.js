@@ -11,6 +11,7 @@ import FileController from './app/controllers/FileController';
 import ProviderController from './app/controllers/ProviderController';
 import CustomerController from './app/controllers/CustomerController';
 import ProductController from './app/controllers/ProductController';
+import ProductsByProviderController from './app/controllers/ProductsByProviderController';
 import ProductsByCategoryController from './app/controllers/ProductByCategoryController';
 import CategoryController from './app/controllers/CategoryController';
 import CategoryByProviderController from './app/controllers/CategoryByProviderController';
@@ -36,6 +37,7 @@ routes.get('/categories/:provider_id', CategoryByProviderController.index);
 routes.post('/products', ProductController.store);
 routes.put('/products/:id', ProductController.update);
 routes.delete('/products/:id', ProductController.destroy);
+routes.get('/products', ProductsByProviderController.index);
 routes.get('/products/:category_id', ProductsByCategoryController.index);
 
 routes.get('/providers', ProviderController.index);

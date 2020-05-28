@@ -7,7 +7,17 @@ class ProductsByCategory {
     const { userId } = req;
 
     const products = await Product.findAll({
-      where: { category_id, provider_id: userId },
+      where: {
+        category_id,
+        provider_id: userId,
+      },
+      include: [
+        {
+          model: File,
+          as: 'image',
+          attributes: ['id', 'path', 'url'],
+        },
+      ],
     });
 
     return res.json(products);
