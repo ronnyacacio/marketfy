@@ -4,7 +4,7 @@ import { FiSearch, FiPlus } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
 import api from '~/services/api';
-import { Header, Scroll } from '~/components';
+import { Header, Scroll, Options } from '~/components';
 import { Container, Actions, ProductList, ProductItem } from './styles';
 
 export default function Product() {
@@ -52,7 +52,7 @@ export default function Product() {
                 <span>{`${product.name} -- ${product.stock} ${
                   product.unitary ? 'Un' : 'Kg'
                 }`}</span>
-                <span>Ações</span>
+                <Options />
               </ProductItem>
             ))}
           </Scroll>

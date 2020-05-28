@@ -67,12 +67,13 @@ export const ProductList = styled.div`
 `;
 
 export const ProductItem = styled.div`
+  position: relative;
   background: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
   align-self: left;
-  padding: 0 30px;
+  padding-left: 30px;
   border-radius: 4px;
   margin-bottom: 20px;
 
@@ -84,7 +85,6 @@ export const ProductItem = styled.div`
   }
 
   div {
-    background: blue;
     width: 80px;
     display: flex;
     align-items: center;
