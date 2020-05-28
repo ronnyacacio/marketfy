@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  margin-right: -30px;
   position: relative;
   button {
-    margin-left: 20px;
     background: none;
     border: 0;
     cursor: pointer;
@@ -12,8 +12,8 @@ export const Container = styled.div`
 
 export const Actions = styled.div`
   position: absolute;
-  right: -28px;
-  top: 37px;
+  right: -9px;
+  top: 20px;
   z-index: 2;
   border-color: 5px solid #000;
   background: #fff;
@@ -50,6 +50,8 @@ export const Actions = styled.div`
       font-size: 16px;
       display: flex;
       align-items: center;
+      cursor: pointer;
+
       svg {
         margin-right: 10px;
       }

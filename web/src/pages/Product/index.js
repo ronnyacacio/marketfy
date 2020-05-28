@@ -52,7 +52,7 @@ export default function Product() {
                 <span>{`${product.name} -- ${product.stock} ${
                   product.unitary ? 'Un' : 'Kg'
                 }`}</span>
-                <Options />
+                <Options product={product} />
               </ProductItem>
             ))}
           </Scroll>
