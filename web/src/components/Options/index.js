@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import {
   MdMoreHoriz,
   MdVisibility,
@@ -7,6 +8,7 @@ import {
   MdDeleteForever,
 } from 'react-icons/md';
 
+import api from '~/services/api';
 import { Detail } from '~/components';
 import { Container, Actions } from './styles';
 
@@ -20,6 +22,19 @@ export default function Options({ product }) {
 
   function handleToggleOpen() {
     setOpen((prevState) => !prevState);
+  }
+
+  async function handleDelete() {
+    try {
+      const option = window.confirm('Deseja mesmo excluir esse produto?');
+
+      if (option) {
+        await api.delete(`products/${product.id}`);
+        toast.success('Produto excluído com sucesso!');
+      }
+    } catch (err) {
+      toast.error('Erro ao excluir o produto!');
+    }
   }
 
   return (
@@ -40,7 +55,7 @@ export default function Options({ product }) {
             <Link
               to={{
                 pathname: `/products/update`,
-                state: {},
+                state: { product },
               }}
             >
               <MdCreate size={18} color="#4D85EE" />
@@ -48,7 +63,7 @@ export default function Options({ product }) {
             </Link>
           </div>
           <div>
-            <button type="button" onClick={() => {}}>
+            <button type="button" onClick={handleDelete}>
               <MdDeleteForever size={18} color="#DE3B3B" />
               Excluir
             </button>
