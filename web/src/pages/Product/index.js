@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiSearch, FiPlus } from 'react-icons/fi';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 import { Header, Scroll, Options } from '~/components';
@@ -9,18 +9,15 @@ import { Container, Actions, ProductList, ProductItem } from './styles';
 
 export default function Product() {
   const [products, setProducts] = useState([]);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     async function loadProducts() {
-      try {
-        const response = await api.get('products');
-        setProducts(response.data);
-      } catch (err) {
-        toast.error('Erro as carregar dados!');
-      }
+      const response = await api.get(`products?search=${search}`);
+      setProducts(response.data);
     }
     loadProducts();
-  }, []);
+  }, [search]);
 
   return (
     <>
@@ -30,7 +27,11 @@ export default function Product() {
         <Actions>
           <div className="search">
             <FiSearch color="#999" size={18} />
-            <input placeholder="Buscar por nome do produto" />
+            <input
+              placeholder="Buscar por nome do produto"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
           </div>
           <Link to="/products/new">
             <button type="button">
